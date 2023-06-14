@@ -60,6 +60,9 @@ const Navbar = () => {
                   </NavLink>
                 </li>
               </ul>
+              <Link className="btn btn-outline-primary" to="/Signin">
+                Sign in
+              </Link>
             </div>
           </div>
         </div>

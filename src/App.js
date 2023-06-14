@@ -5,6 +5,8 @@ import About from "./componants/About";
 import Projects from "./componants/Projects";
 import Contact from "./componants/Contact";
 import Home from "./componants/Home";
+import SignIn from "./componants/SignIn";
+import SignUp from "./componants/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,8 @@ const router = createBrowserRouter([
       { path: "/Contact", element: <Contact /> },
     ],
   },
+  { path: "/Signin", element: <SignIn /> },
+  { path: "/Signup", element: <SignUp /> },
 ]);
 
 const App = () => {
