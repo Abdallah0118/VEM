@@ -8,7 +8,8 @@ const Navbar = () => {
       <nav class="navbar  navbar-expand-sm">
         <div class="container">
           <Link className="navbar-brand" to="/" id="logo">
-            VEM
+            <img src={require("../assets/Website-Design-new.jpeg")} width={"50px"} >
+            </img>
           </Link>
           <button
             class="navbar-toggler shadow-none border-0"

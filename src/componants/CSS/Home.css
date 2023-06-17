@@ -1,1 +1,4 @@
 @import "./Variables.css";
+body{
+    background-color: white !important;
+}
