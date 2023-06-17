@@ -1,32 +1,80 @@
-import React from "react";
+import { useFormik } from "formik";
+import { basicSchema } from "../schemas";
 import "./CSS/SignIn.css";
 import { Link } from "react-router-dom";
 
-const SignIn = () => {
-  return (
-    <>
-      <div class="center shadow">
-        <h1>Login</h1>
-        <form method="post">
-          <div class="txt_field">
-            <input type="text" required />
-            <span></span>
-            <label>Username</label>
-          </div>
-          <div class="txt_field">
-            <input type="password" required />
-            <span></span>
-            <label>Password</label>
-          </div>
-          <div class="pass">Forgot Password?</div>
-          <input type="submit" value="Login" />
-          <div class="signup_link">
-            Not a member? <Link to="/signup">Signup</Link>
-          </div>
-        </form>
-      </div>
-    </>
-  );
+const onSubmit = async (values, actions) => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  actions.resetForm();
 };
 
-export default SignIn;
+const SignUp = () => {
+  const {
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      age: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: basicSchema,
+    onSubmit,
+  });
+
+  console.log(errors);
+
+  return (
+    <div className=" px-3 py-3 my-5 shadow mx-auto bg-light" id="formHolder">
+      <form
+        onSubmit={handleSubmit}
+        autoComplete="off"
+        className="regstrationForm"
+      >
+        <label htmlFor="email">Email</label>
+        <input
+          value={values.email}
+          onChange={handleChange}
+          id="email"
+          type="email"
+          placeholder="Enter your email"
+          onBlur={handleBlur}
+          className={errors.email && touched.email ? "input-error" : ""}
+        />
+        {errors.email && touched.email && (
+          <p className="error">{errors.email}</p>
+        )}
+
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter your password"
+          value={values.password}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          className={errors.password && touched.password ? "input-error" : ""}
+        />
+        {errors.password && touched.password && (
+          <p className="error">{errors.password}</p>
+        )}
+
+        <button disabled={isSubmitting} type="submit">
+          Sign in
+        </button>
+        <p className=" text-center">
+          Or if your are not a member <Link to="/Signup">Sign up</Link>
+        </p>
+      </form>
+    </div>
+  );
+};
+export default SignUp;
