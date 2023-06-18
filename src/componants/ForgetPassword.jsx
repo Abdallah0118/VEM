@@ -7,21 +7,16 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import "./CSS/Login.css";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-const SignIn = () => {
+const ForgetPassword = () => {
   const errRef = useRef();
 
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
-
-  const [pwd, setPwd] = useState("");
-  const [validPwd, setValidPwd] = useState(false);
-  const [pwdFocus, setPwdFocus] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
@@ -30,25 +25,16 @@ const SignIn = () => {
     setValidEmail(EMAIL_REGEX.test(email));
   }, [email]);
 
-  useEffect(() => {
-    setValidPwd(PWD_REGEX.test(pwd));
-  }, [pwd]);
-
-  useEffect(() => {
-    setErrMsg("");
-  }, [pwd]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const body = {
         email: email,
-        password: pwd,
       };
       const response = await axios.post(
         "REGISTER_URL",
-        JSON.stringify({ pwd, email }),
+        JSON.stringify({ email }),
         {
           headers: { "Content-Type": "application/json" },
           body,
@@ -59,11 +45,8 @@ const SignIn = () => {
       console.log(JSON.stringify(response));
       setSuccess(true);
       if (success) {
-        window.location.replace("/");
+        window.location.replace("/checkmail");
       }
-      //clear state and controlled inputs
-      //need value attrib on inputs for this
-      setPwd("");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -132,55 +115,14 @@ const SignIn = () => {
               Enter a valid email address
             </p>
             {/* Email Ends  */}
-            <label htmlFor="password">
-              Password:
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validPwd ? "valid" : "hide"}
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validPwd || !pwd ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              type="password"
-              id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              required
-              aria-invalid={validPwd ? "false" : "true"}
-              aria-describedby="pwdnote"
-              onFocus={() => setPwdFocus(true)}
-              onBlur={() => setPwdFocus(false)}
-            />
-            <p
-              id="pwdnote"
-              className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              8 to 24 characters.
-              <br />
-              Must include uppercase and lowercase letters, a number and a
-              special character.
-              <br />
-              Allowed special characters:{" "}
-              <span aria-label="exclamation mark">!</span>{" "}
-              <span aria-label="at symbol">@</span>{" "}
-              <span aria-label="hashtag">#</span>{" "}
-              <span aria-label="dollar sign">$</span>{" "}
-              <span aria-label="percent">%</span>
-            </p>
 
-            <button disabled={!validPwd ? true : false}>Sign Up</button>
-            <Link to="/forgetpassword">Forget password</Link>
+            <button disabled={!validEmail ? true : false}>Send</button>
           </form>
           <p>
-            If you are not a member. Please
-            <br />
+            Or go to <br />
             <span className="line">
               {/*put router link here*/}
-              <Link to="/Signup">Sign up</Link>
+              <Link to="/Signin">Sign in</Link>
             </span>
           </p>
         </section>
@@ -189,4 +131,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default ForgetPassword;

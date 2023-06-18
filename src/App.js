@@ -7,6 +7,8 @@ import Contact from "./componants/Contact";
 import Home from "./componants/Home";
 import SignIn from "./componants/SignIn";
 import SignUp from "./componants/SignUp";
+import CheckMail from "./componants/CheckMail";
+import ForgetPassword from "./componants/ForgetPassword";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +24,8 @@ const router = createBrowserRouter([
   },
   { path: "/Signin", element: <SignIn /> },
   { path: "/Signup", element: <SignUp /> },
+  { path: "/checkmail", element: <CheckMail /> },
+  { path: "/forgetpassword", element: <ForgetPassword /> },
 ]);
 
 const App = () => {

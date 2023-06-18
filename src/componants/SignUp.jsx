@@ -68,12 +68,18 @@ const Register = () => {
       return;
     }
     try {
+      const body = {
+        email: email,
+        first_name: user,
+        password: pwd,
+        re_password: pwd,
+      };
       const response = await axios.post(
         REGISTER_URL,
         JSON.stringify({ user, pwd, email }),
         {
           headers: { "Content-Type": "application/json" },
-          withCredentials: true,
+          body,
         }
       );
       console.log(response?.data);
@@ -81,7 +87,7 @@ const Register = () => {
       console.log(JSON.stringify(response));
       setSuccess(true);
       if (success) {
-        return <Navigate replace to="/login" />;
+        window.location.replace("/signin");
       }
       //clear state and controlled inputs
       //need value attrib on inputs for this
@@ -110,7 +116,7 @@ const Register = () => {
           </p>
         </section>
       ) : (
-        <section>
+        <section className="shadow rounded">
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
@@ -276,7 +282,7 @@ const Register = () => {
             <br />
             <span className="line">
               {/*put router link here*/}
-              <Link to="/">Sign In</Link>
+              <Link to="/Signin">Sign In</Link>
             </span>
           </p>
         </section>
