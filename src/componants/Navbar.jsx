@@ -36,11 +36,11 @@ const Navbar = () => {
             </div>
             <div class="offcanvas-body" id="navbarNav">
               <ul
-                class="navbar-nav justify-content-end ms-auto"
+                class="navbar-nav justify-content-end mx-auto"
                 id="linksHolder"
               >
                 <li className="nav-item">
-                  <NavLink className="nav-link " to="/" end>
+                  <NavLink className="nav-link" to="/" end>
                     Home
                   </NavLink>
                 </li>
