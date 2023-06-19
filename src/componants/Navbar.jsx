@@ -34,9 +34,9 @@ const Navbar = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div class="offcanvas-body" id="navbarNav">
+            <div class="offcanvas-body flex" id="navbarNav">
               <ul
-                class="navbar-nav justify-content-end ms-auto"
+                class="navbar-nav justify-content-end m-auto"
                 id="linksHolder"
               >
                 <li className="nav-item">
@@ -58,11 +58,20 @@ const Navbar = () => {
                   <NavLink className="nav-link" to="/Contact">
                     Contact
                   </NavLink>
-                </li>
+                  </li>
               </ul>
-              <Link className="btn btn-outline-primary" to="/Signin">
+              <Link href="#" target="_blank" class="btn text-light fs-6 ">
+                GEAST
+                </Link>
+              <span class="nav-item dropdown">
+                <a class="nav-link nav-icon-hover" href="" id="drop2" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <img src={require("../assets/user.jpg")} alt="user" width="35" height="35" class="rounded-circle"/>
+                </a>
+                </span>
+              {/* <Link className="btn btn-outline-primary" to="/Signin">
                 Sign in
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
