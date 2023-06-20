@@ -1,1 +1,14 @@
 @import "./Variables.css";
+
+.full{
+    height: 92vh;
+    margin: 0;
+    padding: 0;
+}
+.img_header{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /* clip-path: ellipse(45% 45% at 50% 50%); */
+
+    /* clip-path: polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%); */
+}
+  

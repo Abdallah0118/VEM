@@ -60,8 +60,16 @@ const Profile  = () => {
                         <label>Password</label>
                       </div>
                     </form>
-                    <img  src={require("../assets/edit-button.png")} width={"70px"} className="btn btn-light  edit" />
+                    <img  src={require("../assets/photo edit.png")} width={"54px"} alt="edit profile" className="btn btn-light  edit" />
+                    <div class="container">
+                    <div class="row">
+                    <div class="col"><input className="bg-success" type="submit" value="Save" /></div>
+                    <div class="col"><input className="bg-dark" type="submit" value="Clear" /></div>
+                    </div>
+                    </div>
                     
+                    
+
                 </div>                
             </div>
         </div>
@@ -74,14 +82,13 @@ const Profile  = () => {
         <div class="col P-5 ">
             <div class="card p-3 py-4 text-center">
                     {/* <img  src={require("../assets/store.png")} width={"70px"} className="btn btn-light  edit" /> */}
-                    <input type="submit" value="EDIT" />
 
 
                     <Row xs={2} md={3} className="g-4">
       {Array.from({ length: 6 }).map((_, idx) => (
         <Col key={idx}>
           <Card>
-            <Card.Img variant="top"  src={require("../assets/kitchen.jpg")} width={"20%"} />
+            <Card.Img variant="top"  src={require("../assets/kitchen.jpg")} alt="shopPhoto" width={"20%"} />
             <Card.Body>
             <Card.Title>Title Shop</Card.Title>
               <Card.Text>

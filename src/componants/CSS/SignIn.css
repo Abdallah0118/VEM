@@ -10,10 +10,17 @@
 }
 .edit{
   position: absolute;
+  top: 21%;
+  right: 43%;
+
+}
+.edit1{
+  position: absolute;
   top: 0;
   right: 0;
 
 }
+
 .center h1 {
   text-align: center;
   padding: 20px 0;
