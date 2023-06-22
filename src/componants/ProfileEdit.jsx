@@ -1,7 +1,81 @@
-import React from "react";
 import "./CSS/SignIn.css";
 import { Card,Button, Col ,Row } from "react-bootstrap";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+
+
 const Profile  = () => {
+  const [user, setUser] = useState(null); // initial user state
+  const [lname, setLname] = useState('');
+  const [fname, setFname] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+  const [location, setLocation] = useState('');
+  const [password, setPassword] = useState('');
+  useEffect(() => {
+    // fetch user data from backend when component mounts
+    axios.get('http://localhost:8000/profile/1')
+      .then(response => {
+        setUser(response.data);
+        // setLname(response.data.first_name);
+        // setFname(response.data.last_name);
+        // setEmail(response.data.email);
+        // setPhone(response.data.phone);
+        // setBirthdate(response.data.birth_date);
+        // setLocation(response.data.location);
+        // setPassword(response.data.password);
+      })
+      .catch(error => console.error(error));
+  }, []);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const updatedUser = {lname,fname,email,phone,birthdate,location,password };
+
+    try {
+      const response = await axios.put('http://localhost:8000/profile/1', updatedUser);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+  // const [formData, setFormData] = useState({
+  //   id: '',
+  //   name: '',
+  //   description: ''
+  // });
+  // const handleChange = (event) => {
+  //   setFormData({
+  //     ...formData,
+  //     [event.target.name]: event.target.value
+  //   });
+  // };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const apiUrl = 'http://localhost:8000/profile/';
+  //   axios.put(apiUrl, formData)
+  //     .then(response => {
+  //       console.log('Data updated successfully:', response.data);
+  //       setFormData(response.data);
+  //       fs.writeFile('data.json', JSON.stringify(response.data), (err) => {
+  //         if (err) {
+  //           console.error('Error writing data to file:', err);
+  //         } else {
+  //           console.log('Data written to file successfully');
+  //         }
+  //       });
+  //     })
+  //     .catch(error => {
+  //       console.error('Error updating data:', error);
+  //     });
+  // };
+
+
   return (
   <>
   <div class="container mt-5 w-100">
@@ -21,54 +95,62 @@ const Profile  = () => {
                         {/* <p class="fonts">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p> */}
                     
                     </div  >
-                    <form method="post">
+                    {user ? (
+                    // <>
+                    <form onSubmit={handleSubmit}>
                       <div className="d-flex justify-content-between ">
                       <div class="txt_field  " >
-                        <input type="text"  placeholder="f name" value={"ahmed"}   />
+                        <input type="text"   value={user.User.first_name} onChange={(e) => setFname(e.target.value)}   />
                         <span></span>
                         <label>first Name</label>
                       </div>
                       <div class="txt_field ">
-                        <input type="text" placeholder="l name"/>
+                        <input type="text" placeholder="l name"  value={lname} onChange={(e) => setLname(e.target.value)}/>
                         <span></span>
                         <label>Last Name</label>
                       </div>
                       </div>
                       <div class="txt_field">
-                        <input type="email"  />
+                        <input type="email" value={""} onChange={(e) => setFname(e.target.value)} />
                         <span></span>
                         <label>Email</label>
                       </div>
                       <div class="txt_field">
-                        <input type="text" />
+                        <input type="text" value={""} onChange={(e) => setFname(e.target.value)} />
                         <span></span>
                         <label>Phone Number</label>
                       </div>
                       <div class="txt_field">
-                        <input type="text"   Focus/>
+                        <input type="text"  value={""} onChange={(e) => setFname(e.target.value)} />
                         <span></span>
                         <label>Birth Date</label>
                       </div>
                       <div class="txt_field">
-                        <input type="text"  Focus/>
+                        <input type="text"  value={""} onChange={(e) => setFname(e.target.value)}/>
                         <span></span>
                         <label>Location</label>
                       </div>
                       <div class="txt_field">
-                        <input type="password" />
+                        <input type="password" value={""} onChange={(e) => setFname(e.target.value)} />
                         <span></span>
                         <label>Password</label>
                       </div>
-                    </form>
+                    
                     <img  src={require("../assets/photo edit.png")} width={"54px"} alt="edit profile" className="btn btn-light  edit" />
                     <div class="container">
                     <div class="row">
-                    <div class="col"><input className="bg-success" type="submit" value="Save" /></div>
-                    <div class="col"><input className="bg-dark" type="submit" value="Clear" /></div>
+                    <div class="col"><input className="bg-success" type="submit" value="Save"  /></div>
+                    <div class="col"><input className="bg-dark" type="reset" value="Clear" /></div>
                     </div>
                     </div>
-                    
-                    
+                    </form>
+                    ) : (   
+                      <div class="text-center">
+                      <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                    </div>
+          )}        
 
                 </div>                
             </div>
