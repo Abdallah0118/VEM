@@ -9,6 +9,8 @@ import SignIn from "./componants/SignIn";
 import SignUp from "./componants/SignUp";
 import CheckMail from "./componants/CheckMail";
 import ForgetPassword from "./componants/ForgetPassword";
+import ShoppingCartProvider from "./context/shopingCartContext";
+import Store from "./componants/Store";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/Projects", element: <Projects /> },
+      { path: "/Store", element: <Store /> },
       { path: "/About", element: <About /> },
       { path: "/Contact", element: <Contact /> },
     ],
@@ -29,7 +32,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <ShoppingCartProvider>
+      <RouterProvider router={router} />
+    </ShoppingCartProvider>
+  );
 };
 
 export default App;
