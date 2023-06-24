@@ -10,7 +10,7 @@ import SignUp from "./componants/SignUp";
 import Profile from "./componants/Profile";
 import ProfileEdit from "./componants/ProfileEdit";
 import Home1 from "./componants/amr";
-// import Home1 from "./componants/amr";
+import AddShop from "./componants/AddShop";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +25,7 @@ const router = createBrowserRouter([
       { path: "/Home", element: <Home1 /> },
       { path: "/profile", element: <Profile/> },
       { path: "/profile/edit", element: <ProfileEdit/> },
+      { path: "/shop/add", element: <AddShop/> },
       
     ],
   },
