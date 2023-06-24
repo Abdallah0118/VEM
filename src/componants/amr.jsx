@@ -1,9 +1,30 @@
 import React from "react";
 import "./CSS/Home.css";
 import 'bootstrap/dist/css/bootstrap.css';
+import Carousel from 'react-bootstrap/Carousel';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import { Link } from "react-router-dom";
-import { Card,Row,Container,Col  } from "react-bootstrap";
+import { Card, Row, Container, Col } from "react-bootstrap";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 const Home1 = () => {
+  const settings = {
+    // dots: true,
+    fade: true,
+    // infinite: true,
+    speed: 500,
+    // slidesToShow: 1,
+    // slidesToScroll: 1
+  };
+  const [shopInfo, setShopInfo] = useState(null);
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/shop/rated')
+      .then(response => setShopInfo(response.data))
+
+      .catch(error => console.log(error));
+  }, []);
   return (
     <>
       <div className="container w-100   full">
@@ -18,7 +39,7 @@ const Home1 = () => {
           <div className="col-md-6 w-50">
             <div
               className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32"
->
+            >
 
               <div>
                 <div className="relative pt-6 px-4 sm:px-6 lg:px-8"></div>
@@ -56,11 +77,8 @@ const Home1 = () => {
                     className="d-flex align-items-end"
                   >
                     <div className="rounded-md shadow">
-                      <a
-                        to="/Signin"
-                        className="btn btn-primary m-1"
-                      >
-                        Register now                    </a>
+                      <Link className="btn btn-primary m-1" to="/Signin">
+                        Register now </Link>
                     </div>
                     <div className="mt-3 sm:mt-0 sm:ms-3">
                       <Link
@@ -78,26 +96,74 @@ const Home1 = () => {
           </div>
         </div>
       </div>
-{/* ========================================================================================================= */}
+      {/* ========================================================================================================= */}
+
+      <Carousel {...settings} >
+        {shopInfo ? (
+          <>
+            <Carousel.Item>
+              <img
+                className="d-block w-100"
+                src={`http://127.0.0.1:8000/shop_images/${shopInfo.Shop.image}` || require("../assets/user.jpg")}
+                alt="First slide"
+              />
+              <Carousel.Caption>
+                <h3>First slide label</h3>
+                <p>{shopInfo.Shop.title || "no name"}</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          </>
+        ) : (
+          <div className="text-center">
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        )}
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src={require("../assets/kitchen.jpg")}
+            alt="Second slide"
+          />
+
+          <Carousel.Caption>
+            <h3>Second slide label</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src={require("../assets/bag.png")}
+            alt="Third slide"
+          />
+
+          <Carousel.Caption>
+            <h3>Third slide label</h3>
+            <p>
+              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+            </p>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
+
+      <Card>
+        <Card.Body>
+
+          <Container>
+            <Row>
+              <Col sm={8}> <img src={require("../assets/user.jpg")} alt="user"/></Col>
+              <Col sm={4}>Like Dropshipping?</Col>
+            </Row>
+          </Container>
+
+        </Card.Body>
+      </Card>
 
 
-
-<Card>
-      <Card.Body>
-
-      <Container>
-      <Row>
-        <Col sm={8}>sm=8</Col>
-        <Col sm={4}>sm=4</Col>
-      </Row>
-      </Container>
-
-      </Card.Body>
-    </Card>
-
-
-{/* -----------------------------------------------------------------------------------------------------------------     */}
-{/* <div className="section search-result-wrap">
+      {/* -----------------------------------------------------------------------------------------------------------------     */}
+      {/* <div className="section search-result-wrap">
         <div className="container">
 
           <div className="row posts-entry">

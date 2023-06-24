@@ -4,39 +4,39 @@ import "./CSS/Navbar.css";
 
 const Navbar = () => {
   return (
-    <header>
-      <nav class="navbar  navbar-expand-sm">
-        <div class="container">
+    <header className="sticky-top  bg-opacity-10">
+      <nav className="navbar  navbar-expand-sm">
+        <div className="container-fluid ">
           <Link className="navbar-brand" to="/" id="logo">
             VEM
           </Link>
           <button
-            class="navbar-toggler shadow-none border-0"
+            className="navbar-toggler  shadow-none border-0"
             type="button"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasNavbar"
             aria-controls="offcanvasNavbar"
             aria-label="Toggle navigation"
           >
-            <i class="bi bi-list"></i>
+            <i className="bi bi-list"></i>
           </button>
           <div
-            class="offcanvas offcanvas-start"
-            tabindex="-1"
+            className="offcanvas offcanvas-start"
+            // tabindex="-1"
             id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel"
           >
-            <div class="offcanvas-header ms-auto">
+            <div className="offcanvas-header ms-auto">
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="offcanvas"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="offcanvas-body flex" id="navbarNav">
+            <div className="offcanvas-body flex" id="navbarNav">
               <ul
-                class="navbar-nav justify-content-end m-auto"
+                className="navbar-nav justify-content-end m-auto"
                 id="linksHolder"
               >
                 <li className="nav-item">
@@ -60,13 +60,13 @@ const Navbar = () => {
                   </NavLink>
                   </li>
               </ul>
-              <Link href="#" target="_blank" class="btn text-light fs-6 ">
+              <Link href="#" target="_blank" className="btn text-light fs-6 ">
                 GEAST
                 </Link>
-              <span class="nav-item dropdown">
-                <a class="nav-link nav-icon-hover" href="" id="drop2" data-bs-toggle="dropdown"
+              <span className="nav-item dropdown">
+                <a className="nav-link nav-icon-hover" href="http" id="drop2" data-bs-toggle="dropdown"
                   aria-expanded="false">
-                  <img src={require("../assets/user.jpg")} alt="user" width="35" height="35" class="rounded-circle"/>
+                  <img src={require("../assets/user.jpg")} alt="user" width="35" height="35" className="rounded-circle"/>
                 </a>
                 </span>
               {/* <Link className="btn btn-outline-primary" to="/Signin">
