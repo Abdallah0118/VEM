@@ -1,6 +1,6 @@
 import "./CSS/Profile.css";
 // import { Card,Button, Col ,Row } from "react-bootstrap";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import axios from 'axios';
 
 const Profile  = () => {
@@ -12,8 +12,18 @@ const Profile  = () => {
   const [birthdate, setBirthdate] = useState('');
   const [location, setLocation] = useState('');
   const [password, setPassword] = useState('');
-  
+  const [ProfilePicture,setProfilePicture] = useState(null);
+  const inputRef = useRef(null);
+  const handleFileChange = (event) => {
+    setProfilePicture(event.target.files[0]);
+  }; 
+  const handlePhotoClick = () => {
+    inputRef.current.click();
+  };
 
+  // <input type="file" name="photo" onChange={handleFileChange} />
+  // <img  src={require("../assets/photo edit.png")} width={"54px"} alt="edit profile"  ref={inputRef} onClick={handlePhotoClick}  className="btn btn-light  edit" />
+   
   useEffect(() => {
     // fetch user data from backend when component mounts
     axios.get(`http://localhost:8000/profile/1`)
@@ -26,6 +36,7 @@ const Profile  = () => {
         setBirthdate(response.data.User.birth_date);
         setLocation(response.data.User.location);
         setPassword(response.data.User.password);
+        setProfilePicture(response.data.User.profile_picture);
       })
       .catch(error => console.error(error));
   }, []);
@@ -33,7 +44,7 @@ const Profile  = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const updatedUser = {lname,fname,email,phone,birthdate,location,password };
+    const updatedUser = {lname,fname,email,phone,birthdate,location,password,ProfilePicture};
     
     try {
       const response = await axios.put('http://localhost:8000/profile/edit/1', updatedUser,{ headers: {
@@ -48,7 +59,26 @@ const Profile  = () => {
     }
   };
 
+  // const updatedUser = {lname, fname, email, phone, birthdate, location, password, ProfilePicture};
 
+  // const formData = new FormData();
+  // formData.append('lname', updatedUser.lname);
+  // formData.append('fname', updatedUser.fname);
+  // formData.append('email', updatedUser.email);
+  // formData.append('phone', updatedUser.phone);
+  // formData.append('birthdate', updatedUser.birthdate);
+  // formData.append('location', updatedUser.location);
+  // formData.append('password', updatedUser.password);
+  // formData.append('ProfilePicture', updatedUser.ProfilePicture);
+  
+  // try {
+  //   const response = await axios.put('http://localhost:8000/profile/edit/1', formData, { headers: {
+  //     'Content-Type': 'multipart/form-data'
+  //   }});
+  //   console.log(response.data);
+  // } catch (error) {
+  //   console.error(error);
+  // }
   // const [formData, setFormData] = useState({
   //   id: '',
   //   name: '',
@@ -89,7 +119,7 @@ const Profile  = () => {
         <div className="col">
             <div className="card ">
                 <div className="text-center">
-                    <img src={require("../assets/user.jpg")} width="150" alt="UserPhoto" class="rounded-circle"/>
+                    <img src={require("../assets/user.jpg")} onChange={(e) => setProfilePicture(e.target.value)} width="150" alt="UserPhoto" class="rounded-circle"/>
                 </div>
                               <div className="text-center mt-3 p-3">
                     {/* <span className="bg-pramary p-1  rounded text-white">{}</span> */}
@@ -140,17 +170,24 @@ const Profile  = () => {
                         <span></span>
                         <label>Password</label>
                       </div>
-                    
-                    <img  src={require("../assets/photo edit.png")} width={"54px"} alt="edit profile" className="btn btn-light  edit" />
+                      <input type="file" name="photo" onChange={handleFileChange} style={{ display: "none" }} />
+                    <img 
+                      src={require("../assets/photo edit.png")} 
+                      width={"54px"} 
+                      alt="edit profile"
+                      ref={inputRef}
+                      onClick={handlePhotoClick}  
+                      className="btn btn-light edit" 
+                       />
                     <div className="container">
                     <div className="row">
-                    <div className="col"><input className="bg-success" type="submit" value="Save"  /></div>
-                    <div className="col"><input className="bg-dark" type="reset" value="Clear" /></div>
+                    <div className="col"><input className="btn-success" type="submit" value="Save"  /></div>
+                    <div className="col"><input className=" bts bg-dark" type="reset" value="reset" /></div>
                     </div>
                     </div>
                     </form>
                     ) : (   
-                      <div className="text-center">
+                      <div className="text-center p-4">
                       <div className="spinner-border" role="status">
                         <span className="visually-hidden">Loading...</span>
                       </div>
