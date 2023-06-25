@@ -13,6 +13,7 @@ footer div a {
   color: var(--text-color);
   margin: auto 10px;
   transition: 0.3s;
+  
 }
 footer div a:hover {
   color: var(--main-color);

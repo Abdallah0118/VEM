@@ -10,7 +10,7 @@ import SignUp from "./componants/SignUp";
 import CheckMail from "./componants/CheckMail";
 import ForgetPassword from "./componants/ForgetPassword";
 import ShoppingCartProvider from "./context/shopingCartContext";
-import Store from "./componants/Store";
+import Shops from "./componants/Shops";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/Projects", element: <Projects /> },
-      { path: "/Store", element: <Store /> },
+      { path: "/shops", element: <Shops /> },
       { path: "/About", element: <About /> },
       { path: "/Contact", element: <Contact /> },
     ],
