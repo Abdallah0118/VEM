@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { FloatingLabel, Form, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Shops = () => {
@@ -19,11 +20,52 @@ const Shops = () => {
     getShops();
   }, []);
 
+  // search shop name
+  const [shopsName, setShopsName] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+    axios.get("https://fakestoreapi.com/products").then((response) => {
+      setShopsName(response.data);
+    });
+  }, []);
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+    const results = shopsName.filter((shop) =>
+      shop.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setSearchResults(results.slice(0, 3));
+  };
+
   return (
-    <div className="container">
+    <div className="container mt-4">
+      <FloatingLabel
+        controlId="floatingInput"
+        label="Search Shops"
+        className="mb-3"
+        onChange={handleChange}
+      >
+        <Form.Control type="text" placeholder="Shop name" />
+      </FloatingLabel>
+      {searchTerm && (
+        <ListGroup>
+          {searchResults.map((shop) => (
+            <ListGroup.Item key={shop.id}>
+              <Link
+                to={`/shops/${shop.id}`}
+                className=" text-decoration-none text-primary"
+              >
+                {shop.title}
+              </Link>
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
+      )}
       {shops &&
         shops.map((item) => (
-          <div key={item.id}>
+          <div key={item.id} className="mt-3">
             <div class="card mb-3">
               <div class="row g-0">
                 <div class="col-md-4">
